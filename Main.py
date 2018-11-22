@@ -6,6 +6,7 @@
 #   Version 5: Make this a batch job
 #               and make it run everyday, feeding data to Datastudio
 #   Next versions: Add Criteo, Facebook, etc, etc.
+
 import os
 from openpyxl import load_workbook
 import gspread
@@ -64,6 +65,10 @@ def get_google_spending():
         i = i + 1
 
     return googleCost
+
+
+def get_trafic_data():
+    return {}
 
 
 def getGoogleSC():
