@@ -51,3 +51,4 @@ allDates: List[str] = []
 
 allDates = getAllDates()
 
+print(allDates)
