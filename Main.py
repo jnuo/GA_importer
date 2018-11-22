@@ -36,19 +36,42 @@ def getGoogleSpending():
 
 def getGoogleSC():
     googlesc: Dict[str, float] = {
-        '2018-11-01': 156.78,
-        '2018-11-02': 166.78,
-        '2018-11-03': 176.78,
+        '2018-11-01': 166.78,
+        '2018-11-02': 136.78,
+        '2018-11-03': 246.78,
     }
 
     return googlesc
+
+def calculateRoi(dates, costs, profits):
+    rois: Dict[str, float] = {}
+    cost = 0
+    profit = 0
+    roi = 0
+    for i in dates:
+        if i in costs:
+            cost = costs[i]
+        else:
+            rois[i] = "-"
+            continue
+        if i in profits:
+            profit = profits[i]
+        else:
+            rois[i] = "-"
+            continue
+        roi = float(profit / cost)
+        rois[i] = roi
+
+    return rois
 # Functions End
 
 googleSpending: Dict[str, float] = getGoogleSpending()
 googleSC: Dict[str, float] = getGoogleSC()
-
+googleRois = {}
 allDates: List[str] = []
 
 allDates = getAllDates()
 
-print(allDates)
+googleRois = calculateRoi(allDates, googleSpending, googleSC)
+
+print(googleRois)
