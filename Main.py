@@ -6,7 +6,10 @@
 #   Version 5: Make this a batch job
 #               and make it run everyday, feeding data to Datastudio
 #   Next versions: Add Criteo, Facebook, etc, etc.
+import os
 from typing import List, Dict
+
+from openpyxl import load_workbook
 
 
 # Functions Begin
@@ -25,23 +28,68 @@ def getAllDates():
             dates.append(i)
     return dates
 
+
 def getGoogleSpending():
-    googleCost: Dict[str, float] = {
-        '2018-11-01': 156.78,
-        '2018-11-02': 166.78,
-        '2018-11-03': 176.78,
-    }
+    googleSpendingFileName = 'GoogleSpendings.xlsx'
+    director = os.path.dirname(__file__) + "/docs/"
+    path = director + googleSpendingFileName
+    wb = load_workbook(path)
+
+    sheet = wb['Sheet1']
+    row_count = sheet.max_row
+    column_count = sheet.max_column
+
+    googleCost: Dict[str, float] = {}
+
+    i = 2
+    while i <= row_count:
+        indexDate = "A" + str(i)
+        indexCost = "B" + str(i)
+        cell = sheet[indexDate].value
+        valueDate = ""
+        try:
+            valueDate = str(cell.strftime("%Y-%m-%d"))
+        except:
+            continue
+
+        valueCost = sheet[indexCost].value
+        if valueDate not in googleCost:
+            googleCost[valueDate] = valueCost
+        i = i + 1
 
     return googleCost
 
+
 def getGoogleSC():
-    googlesc: Dict[str, float] = {
-        '2018-11-01': 166.78,
-        '2018-11-02': 136.78,
-        '2018-11-03': 246.78,
-    }
+    googleProfitFileName = 'GoogleProfits.xlsx'
+    director = os.path.dirname(__file__) + "/docs/"
+    path = director + googleProfitFileName
+    wb = load_workbook(path)
+
+    sheet = wb['Sheet1']
+    row_count = sheet.max_row
+    column_count = sheet.max_column
+
+    googlesc: Dict[str, float] = {}
+
+    i = 2
+    while i <= row_count:
+        indexDate = "A" + str(i)
+        indexProfit = "B" + str(i)
+        cell = sheet[indexDate].value
+        valueDate = ""
+        try:
+            valueDate = str(cell.strftime("%Y-%m-%d"))
+        except:
+            continue
+
+        valueCost = sheet[indexProfit].value
+        if valueDate not in googlesc:
+            googlesc[valueDate] = valueCost
+        i = i + 1
 
     return googlesc
+
 
 def calculateRoi(dates, costs, profits):
     rois: Dict[str, float] = {}
@@ -63,6 +111,8 @@ def calculateRoi(dates, costs, profits):
         rois[i] = roi
 
     return rois
+
+
 # Functions End
 
 googleSpending: Dict[str, float] = getGoogleSpending()
@@ -74,4 +124,5 @@ allDates = getAllDates()
 
 googleRois = calculateRoi(allDates, googleSpending, googleSC)
 
-print(googleRois)
+for i in googleRois:
+    print(i + ": " + str(googleRois[i]))
