@@ -145,3 +145,5 @@ wks = gc.open('ROI Report').sheet1
 # print(wks.acell('A2').value)
 
 wks.update_acell('A2', '2018-11-01')
+print(wks.get_all_records())
+
