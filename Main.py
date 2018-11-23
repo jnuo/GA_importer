@@ -13,8 +13,6 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from openpyxl import load_workbook
 
-# jnuo onur
-
 # Google Sheets Integration
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('ROIReport-101da91f6b59.json', scope)
