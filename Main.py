@@ -13,14 +13,18 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from openpyxl import load_workbook
 
+# jnuo onur
+
+# Google Sheets Integration
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-
 credentials = ServiceAccountCredentials.from_json_keyfile_name('ROIReport-101da91f6b59.json', scope)
-
 gc = gspread.authorize(credentials)
 
 
 # Functions Begin
+
+
+
 def get_all_dates():
     dates = []
 
@@ -69,6 +73,21 @@ def get_google_spending():
 
 
 def get_trafic_data():
+    googleTrafficDataFileName = 'GAReport.xlsx'
+    directory = os.path.dirname(__file__) + "/docs/"
+    path = directory + googleTrafficDataFileName
+    wb = load_workbook(path)
+
+    sheet = wb['Dataset1']
+    row_count = sheet.max_row
+    column_count = sheet.max_column
+
+    traficData = {}
+
+    i=2
+    while i <= row_count:
+        
+
     return {}
 
 
