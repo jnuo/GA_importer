@@ -8,9 +8,10 @@
 #   Next versions: Add Criteo, Facebook, etc, etc.
 
 import os
-from openpyxl import load_workbook
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from openpyxl import load_workbook
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
