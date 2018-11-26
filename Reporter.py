@@ -1,0 +1,3 @@
+LASTXDAYS = 7
+
+print(LASTXDAYS)
